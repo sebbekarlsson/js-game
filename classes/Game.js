@@ -38,11 +38,18 @@ class Game {
         this.drawScore();
     }
 
-    // rack upp handen nar cirkeln ror pa sig och
-    // vi inte ser "strecken" bakom langre.
+    // rack upp handen nar ni kanner att ni fatt
+    // en lagom niva pa asteroider.
+   
 
     // rakna ut saker
     update() {
+
+        // kasta en tarning.
+        if (getRandomNumber(0, 12) === 1) {
+            this.insertEnemy();
+        }
+
         this.gameObjects.forEach(function(obj){
             obj.update();
         });
@@ -63,13 +70,21 @@ class Game {
         const x = getRandomNumber(0, 640);
         const y = getRandomNumber(0, 480);
         this.gameObjects.push(new Coin(x, y, ctx, this));
+
+        this.score += 1;
     }
+
+    insertEnemy() {
+        const x = getRandomNumber(0, 640);
+        const y = -128;
+        this.gameObjects.push(new Enemy(x, y, ctx, this, 32, 32));
+    }
+
+    // rack upp handen nar ni ser bilder
 
     drawScore() {
         this.ctx.font = "22px Sans-Serif";
         this.ctx.fillStyle = "white";
         this.ctx.fillText(`score: ${this.score}`, 16, 32);
-
-        // rack upp handen nar ni ser score texten.
     }
 }

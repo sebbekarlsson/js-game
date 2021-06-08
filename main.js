@@ -6,6 +6,7 @@ const ctx = canvas.getContext("2d"); // ett blankt papper som vi kan rita pa
 
 const game = new Game(ctx);
 
-game.start();
 
+
+game.start();
 // rack upp handen nar ni ser cirkeln.
