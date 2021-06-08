@@ -5,9 +5,19 @@ class Game {
 
         this.ctx = ctx;
 
-        const player = new Player(120, 300, ctx);
+        const player = new Player(120, 300, ctx, this);
 
         this.gameObjects.push(player);
+
+        this.keys = {};
+
+        document.addEventListener("keydown", function(event){
+            this.keys[event.key] = true;
+        }.bind(this) );
+
+        document.addEventListener("keyup", function(event){
+            delete this.keys[event.key];
+        }.bind(this) );
     }
 
     // rita pa skarmen

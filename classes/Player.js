@@ -1,6 +1,7 @@
 class Player extends GameObject {
-    constructor(x, y, ctx) {
+    constructor(x, y, ctx, game) {
         super(x, y, ctx);
+        this.game = game;
     }
 
     draw() {
@@ -10,8 +11,13 @@ class Player extends GameObject {
         this.ctx.stroke();
     }
 
+
     update() {
-        
+        if (this.game.keys["d"]) {
+            this.x += 5;
+        }
+
+        // rack upp handen nar cirkeln ror pa sig nar ni trycker
+        // pa knappen ni valt.
     }
 }
-// rack upp handen nar cirkeln ror pa sig.

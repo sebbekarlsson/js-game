@@ -1,6 +1,6 @@
 const canvas = document.getElementById("canvas");
-// context
-const ctx = canvas.getContext("2d");
+// forkortning for context
+const ctx = canvas.getContext("2d"); // ett blankt papper som vi kan rita pa
 
 
 
