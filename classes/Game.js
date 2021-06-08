@@ -2,6 +2,7 @@ class Game {
     constructor(ctx) {
         this.gameObjects = [];
         this.level = 0;
+        this.score = 0;
 
         this.ctx = ctx;
 
@@ -33,6 +34,8 @@ class Game {
         this.gameObjects.forEach(function(obj){
             obj.draw();
         });
+
+        this.drawScore();
     }
 
     // rack upp handen nar cirkeln ror pa sig och
@@ -49,5 +52,24 @@ class Game {
 
     start() {
         this.update();
+    }
+
+    // ta bort `obj` fran gameObjects listan.
+    removeObject(obj) {
+        this.gameObjects = this.gameObjects.filter(gameObj => gameObj != obj);
+    }
+
+    whenCoinRemoved() {
+        const x = getRandomNumber(0, 640);
+        const y = getRandomNumber(0, 480);
+        this.gameObjects.push(new Coin(x, y, ctx, this));
+    }
+
+    drawScore() {
+        this.ctx.font = "22px Sans-Serif";
+        this.ctx.fillStyle = "white";
+        this.ctx.fillText(`score: ${this.score}`, 16, 32);
+
+        // rack upp handen nar ni ser score texten.
     }
 }

@@ -19,18 +19,28 @@ class Coin extends GameObject {
         this.game.gameObjects.forEach(function(gameObject){
             if(gameObject.constructor.name === "Player") {
                 
+                /*================================ y ===============================*/
+
                 // ar myntets "huvud/ovansida" ovanfor spelarens "fot"?
                 if (this.y - this.radius <= gameObject.y + gameObject.radius) {
 
                     // ar myntets "fot" nedanfor spelarens "huvud/ovansida"?
                     if (this.y + this.radius >= gameObject.y - gameObject.radius) {
-                        console.log("hej123")
+                      
+
+                        /* ========================= x ================================ */
+               
+                        if (this.x - this.radius <= gameObject.x + gameObject.radius) {
+                            if (this.x + this.radius >= gameObject.x - gameObject.radius) {
+                                this.game.whenCoinRemoved();
+                                this.game.removeObject(this);
+                            }
+                        }
+
                     }
                 }
 
-                // rack upp handen nar ni bara ser console.log
-                // nar spelaren ar i samma niva vertikalt (i y-led, upp och ned)
-                // som myntet.
+                // rack upp handen nar ni kan "plocka" upp myntet.
             }
         }.bind(this)   );
     }
