@@ -9,6 +9,11 @@ class Game {
 
         this.gameObjects.push(player);
 
+
+        this.gameObjects.push(new Coin(400, 350, ctx, this));
+
+        // rack upp handen nar ni ser en gul cirkel.
+
         this.keys = {};
 
         document.addEventListener("keydown", function(event){
