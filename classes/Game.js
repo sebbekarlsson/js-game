@@ -13,8 +13,6 @@ class Game {
 
         this.gameObjects.push(new Coin(400, 350, ctx, this));
 
-        // rack upp handen nar ni ser en gul cirkel.
-
         this.keys = {};
 
         document.addEventListener("keydown", function(event){
@@ -72,6 +70,13 @@ class Game {
         this.gameObjects.push(new Coin(x, y, ctx, this));
 
         this.score += 1;
+    }
+
+    // rack upp handen nar ni ser explosioner.
+    whenHitAsteroid(x, y, asteroid) {
+        this.score = 0;
+        this.gameObjects.push(new Explosion(x, y, ctx, this));
+        this.removeObject(asteroid);
     }
 
     insertEnemy() {

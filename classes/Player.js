@@ -2,16 +2,19 @@ class Player extends GameObject {
     constructor(x, y, ctx, game) {
         super(x, y, ctx);
         this.game = game;
-        this.radius = 18;
-        this.width = this.radius * 2;
+        this.radius = 32;
+        this.width = this.radius;
         this.height = this.width;
     }
 
     draw() {
-        this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-        this.ctx.strokeStyle = "red";
-        this.ctx.stroke();
+        this.ctx.drawImage(
+            SHIP_IMAGE,     // bild vi vill rita
+            this.x,             // horisontell koordinat
+            this.y,             // vertikal koordinat
+            this.width,         // bredd
+            this.height         // hojd
+        );
     }
 
 
@@ -35,6 +38,17 @@ class Player extends GameObject {
         if (this.game.keys["s"]) {
             this.y += 5;
         }
+
+        // rack upp handen nar ni tappar poang
+        // efter att nuddat en asteroid.
+        this.game.gameObjects.forEach(function(gameObject){
+
+            if(gameObject.constructor.name === "Enemy") {
+                
+                if (this.isTouching(gameObject)) {
+                    this.game.whenHitAsteroid(this.x, this.y, gameObject);
+                }
+            }
+        }.bind(this)   );
     }
-    // rack upp handen nar ni kan rora cirkeln at alla hall.
 }
