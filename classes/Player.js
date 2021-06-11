@@ -5,16 +5,30 @@ class Player extends GameObject {
         this.radius = 32;
         this.width = this.radius;
         this.height = this.width;
+        this.rotation = 90;
     }
 
+    // rack upp handen nar ni gjort detta
     draw() {
+        this.ctx.save();
+        this.ctx.translate(this.x, this.y);
+
+        this.ctx.translate(this.width / 2, this.height / 2);
+
+        const radians = (this.rotation - 90 - 180) * (Math.PI / 180);
+        this.ctx.rotate(radians);
+
+        this.ctx.translate(-(this.width / 2), -(this.height / 2));
+
         this.ctx.drawImage(
             SHIP_IMAGE,     // bild vi vill rita
-            this.x,             // horisontell koordinat
-            this.y,             // vertikal koordinat
+            0,             // horisontell koordinat
+            0,             // vertikal koordinat
             this.width,         // bredd
             this.height         // hojd
         );
+
+        this.ctx.restore();
     }
 
 
@@ -22,31 +36,33 @@ class Player extends GameObject {
         // right
         if (this.game.keys["d"]) {
             this.x += 5;
+            this.rotation = 360;
         }
 
         // left
         if (this.game.keys["a"]) {
             this.x -= 5;
+            this.rotation = 180;
         }
 
         // up
         if (this.game.keys["w"]) {
             this.y -= 5;
+            this.rotation = 270;
         }
 
         // down
         if (this.game.keys["s"]) {
             this.y += 5;
+            this.rotation = 90;
         }
 
-        // rack upp handen nar ni tappar poang
-        // efter att nuddat en asteroid.
         this.game.gameObjects.forEach(function(gameObject){
 
             if(gameObject.constructor.name === "Enemy") {
                 
                 if (this.isTouching(gameObject)) {
-                    this.game.whenHitAsteroid(this.x, this.y, gameObject);
+                    this.game.whenHitAsteroid(this, gameObject);
                 }
             }
         }.bind(this)   );

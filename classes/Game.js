@@ -72,10 +72,19 @@ class Game {
         this.score += 1;
     }
 
-    // rack upp handen nar ni ser explosioner.
-    whenHitAsteroid(x, y, asteroid) {
+
+    // rack upp handen nar ni tagit med spelarens
+    // bred och hojd i ekvationen.
+    whenHitAsteroid(player, asteroid) {
+        const x = player.x + player.width / 2;
+        const y = player.y + player.height / 2;
+        
         this.score = 0;
-        this.gameObjects.push(new Explosion(x, y, ctx, this));
+
+        const explosion = new Explosion(x, y, ctx, this);
+        explosion.x -= explosion.width / 2;
+        explosion.y -= explosion.height / 2;
+        this.gameObjects.push(explosion);
         this.removeObject(asteroid);
     }
 

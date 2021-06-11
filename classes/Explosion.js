@@ -34,6 +34,8 @@ class Explosion extends GameObject {
         }
     }
 
+    // rack upp handen nar ni har uppe spelet
+    // och webblasaren och vscode.
 
     update() {
 
